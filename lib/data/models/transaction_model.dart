@@ -43,4 +43,30 @@ class TransactionModel {
       'date': date.toIso8601String(),
     };
   }
+
+  factory TransactionModel.fromMap(Map<String, dynamic> map) {
+    final typeVal = map['type'] as String;
+    if (typeVal != 'pemasukan' && typeVal != 'pengeluaran') {
+      throw ArgumentError('Type must be either "pemasukan" or "pengeluaran"');
+    }
+    return TransactionModel(
+      id: map['id'] as String,
+      title: map['title'] as String,
+      amount: (map['amount'] as num).toDouble(),
+      type: typeVal,
+      category: map['category'] as String,
+      date: DateTime.parse(map['date'] as String),
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'amount': amount,
+      'type': type,
+      'category': category,
+      'date': date.toIso8601String(),
+    };
+  }
 }

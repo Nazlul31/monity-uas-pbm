@@ -49,5 +49,22 @@ class TransactionProvider with ChangeNotifier {
   void addTransaction(TransactionModel transaction) {
     _transactions.add(transaction);
     notifyListeners();
+    // TODO: Integrasikan dengan DatabaseHelper di branch feature/integration
+    // DatabaseHelper().insertTransaction(transaction);
+  }
+
+  Future<void> loadTransactionsFromDB() async {
+    // TODO: Integrasikan dengan DatabaseHelper di branch feature/integration
+    // _transactions.clear();
+    // final dbTransactions = await DatabaseHelper().getTransactions();
+    // _transactions.addAll(dbTransactions);
+    // notifyListeners();
+  }
+
+  void deleteTransaction(String id) {
+    _transactions.removeWhere((tx) => tx.id == id);
+    notifyListeners();
+    // TODO: Integrasikan dengan DatabaseHelper di branch feature/integration
+    // DatabaseHelper().deleteTransaction(id);
   }
 }
