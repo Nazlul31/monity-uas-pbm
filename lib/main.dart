@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sqflite/sqflite.dart';
 import 'core/theme/app_theme.dart';
 import 'providers/transaction_provider.dart';
+import 'providers/auth_provider.dart';
 import 'presentation/screens/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Pastikan database diinisialisasi sebelum app berjalan
+  await databaseFactory.getDatabasesPath();
   runApp(const MonityApp());
 }
 
@@ -15,6 +20,7 @@ class MonityApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => TransactionProvider()),
       ],
       child: MaterialApp(

@@ -7,7 +7,8 @@ import '../../providers/transaction_provider.dart';
 import '../widgets/custom_button.dart';
 
 class AddTransactionScreen extends StatefulWidget {
-  const AddTransactionScreen({super.key});
+  final int userId;
+  const AddTransactionScreen({super.key, required this.userId});
 
   @override
   State<AddTransactionScreen> createState() => _AddTransactionScreenState();
@@ -31,6 +32,9 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     'Hiburan',
     'Kesehatan',
     'Pendidikan',
+    'Kebutuhan',
+    'Gaya Hidup',
+    'Freelance',
     'Lainnya',
   ];
 
@@ -73,11 +77,13 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
 
     final tx = TransactionModel(
       id: 'tx-${DateTime.now().millisecondsSinceEpoch}',
+      userId: widget.userId,
       title: _titleCtrl.text.trim(),
       amount: double.parse(_amountCtrl.text.replaceAll('.', '')),
       type: _selectedType,
       category: _selectedCategory!,
       date: _selectedDate,
+      note: _detailCtrl.text.trim().isEmpty ? null : _detailCtrl.text.trim(),
     );
 
     context.read<TransactionProvider>().addTransaction(tx);
